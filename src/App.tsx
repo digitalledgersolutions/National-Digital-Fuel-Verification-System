@@ -134,7 +134,11 @@ export default function App() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isAuthReady, setIsAuthReady] = useState(false);
   const [activeScanType, setActiveScanType] = useState<ScanType>('PLATE');
-  const [result, setResult] = useState<{ extractedData: string; record?: ScanRecord | ProfileRecord } | null>(null);
+  const [result, setResult] = useState<{ 
+    extractedData: string; 
+    record?: ScanRecord | ProfileRecord;
+    faceImageUrl?: string;
+  } | null>(null);
   const [pendingScan, setPendingScan] = useState<{ 
     extractedData: string; 
     imageUrl: string;
@@ -572,14 +576,8 @@ export default function App() {
           if (matchedProfile) {
             setResult({
               extractedData: matchedProfile.name,
-              record: { 
-                id: matchedProfile.id, 
-                type: 'FACE', 
-                extractedData: matchedProfile.name, 
-                imageUrl: matchedProfile.faceImageUrl, 
-                scannedAt: matchedProfile.createdAt, 
-                userId: matchedProfile.userId 
-              } as ScanRecord
+              record: matchedProfile,
+              faceImageUrl: matchedProfile.faceImageUrl
             });
             setLoading(false);
             return;
@@ -672,9 +670,11 @@ export default function App() {
 
         if (!querySnapshot.empty) {
           const doc = querySnapshot.docs[0];
+          const data = doc.data() as ScanRecord;
           setResult({
             extractedData,
-            record: { id: doc.id, ...doc.data() } as ScanRecord
+            record: { id: doc.id, ...data },
+            faceImageUrl: data.imageUrl
           });
           setLoading(false);
           return;
@@ -858,7 +858,10 @@ export default function App() {
           }
         };
         await addDoc(profilesRef, newProfile);
-        setResult({ extractedData: finalName });
+        setResult({ 
+          extractedData: finalName,
+          faceImageUrl: pendingScan.imageUrl
+        });
       } else {
         const scansRef = collection(db, 'scans');
         
@@ -889,7 +892,10 @@ export default function App() {
           }
         };
         await addDoc(scansRef, newRecord);
-        setResult({ extractedData: finalData });
+        setResult({ 
+          extractedData: finalData,
+          faceImageUrl: pendingScan.imageUrl
+        });
       }
       
       setPendingScan(null);
@@ -1534,22 +1540,48 @@ export default function App() {
                   {result.record && (
                     <div className="space-y-4">
                       {activeScanType === 'VERIFY' && (
-                        <div className="p-4 bg-amber-50 border-2 border-amber-200 rounded-2xl space-y-3">
-                          <div className="flex items-center gap-2 text-amber-900">
-                            <ShieldAlert className="w-5 h-5" />
-                            <span className="text-xs font-black uppercase tracking-widest">Administrative Status</span>
-                          </div>
-                          <div className="grid grid-cols-2 gap-4">
-                            <div className="space-y-1">
-                              <p className="text-[10px] font-bold text-amber-900/50 uppercase tracking-widest">Quota Status</p>
-                              <p className="text-sm font-black text-amber-900">{quotas.used}L / {quotas.total}L Used</p>
+                        <>
+                          <div className="p-4 bg-amber-50 border-2 border-amber-200 rounded-2xl space-y-3">
+                            <div className="flex items-center gap-2 text-amber-900">
+                              <ShieldAlert className="w-5 h-5" />
+                              <span className="text-xs font-black uppercase tracking-widest">Administrative Status</span>
                             </div>
-                            <div className="space-y-1">
-                              <p className="text-[10px] font-bold text-amber-900/50 uppercase tracking-widest">Verification</p>
-                              <p className="text-sm font-black text-green-700">AUTHORIZED</p>
+                            <div className="grid grid-cols-2 gap-4">
+                              <div className="space-y-1">
+                                <p className="text-[10px] font-bold text-amber-900/50 uppercase tracking-widest">Quota Status</p>
+                                <p className="text-sm font-black text-amber-900">{quotas.used}L / {quotas.total}L Used</p>
+                              </div>
+                              <div className="space-y-1">
+                                <p className="text-[10px] font-bold text-amber-900/50 uppercase tracking-widest">Verification</p>
+                                <p className="text-sm font-black text-green-700">AUTHORIZED</p>
+                              </div>
                             </div>
                           </div>
-                        </div>
+
+                          <div className="space-y-3 pt-2">
+                            <p className="text-[10px] font-black uppercase text-amber-900/50 tracking-widest">Linked Identifiers</p>
+                            <div className="grid grid-cols-1 gap-2">
+                              {(result.record as ProfileRecord).plateNumber && (
+                                <div className="flex items-center justify-between p-3 bg-white/50 rounded-xl border border-amber-100">
+                                  <span className="text-[10px] font-bold text-slate-500 uppercase flex items-center gap-2"><Car className="w-3 h-3" /> Plate</span>
+                                  <span className="text-xs font-black text-slate-900">{(result.record as ProfileRecord).plateNumber}</span>
+                                </div>
+                              )}
+                              {(result.record as ProfileRecord).licenseNumber && (
+                                <div className="flex items-center justify-between p-3 bg-white/50 rounded-xl border border-amber-100">
+                                  <span className="text-[10px] font-bold text-slate-500 uppercase flex items-center gap-2"><CreditCard className="w-3 h-3" /> License</span>
+                                  <span className="text-xs font-black text-slate-900">{(result.record as ProfileRecord).licenseNumber}</span>
+                                </div>
+                              )}
+                              {(result.record as ProfileRecord).nidNumber && (
+                                <div className="flex items-center justify-between p-3 bg-white/50 rounded-xl border border-amber-100">
+                                  <span className="text-[10px] font-bold text-slate-500 uppercase flex items-center gap-2"><IdCard className="w-3 h-3" /> NID</span>
+                                  <span className="text-xs font-black text-slate-900">{(result.record as ProfileRecord).nidNumber}</span>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        </>
                       )}
                       <div className="flex flex-col gap-1">
                         <span className="text-[10px] uppercase font-bold text-amber-900/50 tracking-widest">Last Scanned</span>
