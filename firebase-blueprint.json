@@ -1,0 +1,79 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "A user of the application.",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" },
+        "role": { "type": "string", "enum": ["admin", "operator"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["email", "role", "createdAt"]
+    },
+    "Scan": {
+      "title": "Scan Record",
+      "description": "A record of a scanned item (Plate, License, NID, or Face).",
+      "type": "object",
+      "properties": {
+        "type": { "type": "string", "enum": ["PLATE", "LICENSE", "NID", "FACE"] },
+        "extractedData": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "scannedAt": { "type": "string", "format": "date-time" },
+        "userId": { "type": "string" },
+        "metadata": {
+          "type": "object",
+          "properties": {
+            "licenseNumber": { "type": "string" },
+            "nidNumber": { "type": "string" },
+            "nidAge": { "type": "string" },
+            "nidName": { "type": "string" }
+          }
+        }
+      },
+      "required": ["type", "extractedData", "imageUrl", "scannedAt", "userId"]
+    },
+    "Profile": {
+      "title": "Person Profile",
+      "description": "A unified profile for a person linking multiple identifiers.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "faceImageUrl": { "type": "string" },
+        "plateNumber": { "type": "string" },
+        "plateImageUrl": { "type": "string" },
+        "licenseNumber": { "type": "string" },
+        "licenseImageUrl": { "type": "string" },
+        "nidNumber": { "type": "string" },
+        "nidImageUrl": { "type": "string" },
+        "licenseName": { "type": "string" },
+        "nidName": { "type": "string" },
+        "nidAge": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "userId": { "type": "string" },
+        "metadata": {
+          "type": "object",
+          "properties": {
+            "nameMatch": { "type": "boolean" },
+            "ageMatch": { "type": "boolean" }
+          }
+        }
+      },
+      "required": ["name", "faceImageUrl", "createdAt", "userId"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Collection of user profiles and roles."
+    },
+    "/scans/{scanId}": {
+      "schema": "Scan",
+      "description": "Collection of all scanned items."
+    },
+    "/profiles/{profileId}": {
+      "schema": "Profile",
+      "description": "Collection of unified person profiles."
+    }
+  }
+}

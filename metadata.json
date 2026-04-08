@@ -1,0 +1,7 @@
+{
+  "name": "License Plate Scanner Pro",
+  "description": "Professional license plate and identity scanner using AI. Scan plates, licenses, and NIDs to manage records and profiles.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}

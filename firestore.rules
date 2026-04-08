@@ -1,0 +1,141 @@
+// ===============================================================
+// Assumed Data Model
+// ===============================================================
+//
+// Collection: users
+// Document ID: userId
+// Fields:
+//   - email: string (required)
+//   - role: string (required, 'admin' | 'operator')
+//   - createdAt: string (required, date-time)
+//
+// Collection: scans
+// Document ID: scanId
+// Fields:
+//   - type: string (required, 'PLATE' | 'LICENSE' | 'NID' | 'FACE')
+//   - extractedData: string (required)
+//   - imageUrl: string (required, base64)
+//   - scannedAt: string (required, date-time)
+//   - userId: string (required)
+//
+// Collection: profiles
+// Document ID: profileId
+// Fields:
+//   - name: string (required)
+//   - faceImageUrl: string (required)
+//   - createdAt: string (required)
+//   - userId: string (required)
+//
+// ===============================================================
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // --- Helper Functions ---
+    
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function isHardcodedAdmin() {
+      return isAuthenticated() && (
+        request.auth.token.email == "admin@islambrothersltd.com" ||
+        request.auth.token.email == "diamondvaiteam@gmail.com" ||
+        request.auth.token.email == "mdrifathossainpersonal@gmail.com"
+      );
+    }
+
+    // Check if the current user has the 'admin' role in the database
+    function isDbAdmin() {
+      return isAuthenticated() && 
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+
+    function isOperator() {
+      return isAuthenticated() && 
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'operator';
+    }
+
+    function isAdmin() {
+      return isHardcodedAdmin() || isDbAdmin();
+    }
+
+    function isRecent(tsString) {
+      return tsString is string && 
+             request.time - timestamp(tsString) < duration.value(10, 'm');
+    }
+
+    function isValidEmail(email) {
+      return email is string && email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
+    }
+
+    // --- Domain Validators ---
+
+    function isValidUser(data) {
+      return data.keys().hasAll(['email', 'role', 'createdAt']) &&
+             data.keys().hasOnly(['email', 'role', 'createdAt']) &&
+             isValidEmail(data.email) &&
+             data.role in ['admin', 'operator'] &&
+             data.createdAt is string;
+    }
+
+    function isValidScan(data) {
+      return data.keys().hasAll(['type', 'extractedData', 'imageUrl', 'scannedAt', 'userId']) &&
+             data.type in ['PLATE', 'LICENSE', 'NID', 'FACE', 'FUEL'] &&
+             data.extractedData is string &&
+             data.imageUrl is string &&
+             data.scannedAt is string &&
+             data.userId == request.auth.uid;
+    }
+
+    function isValidProfile(data) {
+      return data.keys().hasAll(['name', 'faceImageUrl', 'createdAt', 'userId']) &&
+             data.name is string &&
+             data.faceImageUrl is string &&
+             data.createdAt is string &&
+             data.userId == request.auth.uid;
+    }
+
+    // --- Collection Rules ---
+
+    match /users/{userId} {
+      // Base case: user can always read their own document
+      // This prevents recursion when isDbAdmin() or isOperator() calls get() on the current user's document
+      allow read: if isOwner(userId);
+      
+      // Hardcoded admins can read everything
+      allow read: if isHardcodedAdmin();
+      
+      // DB Admins can read other users' documents
+      // We only call isDbAdmin if it's NOT the owner's document to prevent recursion
+      allow read: if !isOwner(userId) && isDbAdmin();
+      
+      allow create: if isOwner(userId) && isValidUser(request.resource.data) && (
+        request.resource.data.role == 'operator' || 
+        (request.resource.data.role == 'admin' && isHardcodedAdmin())
+      );
+      
+      allow update: if (isOwner(userId) && request.resource.data.role == resource.data.role && isValidUser(request.resource.data)) || 
+                    (!isOwner(userId) && isAdmin() && isValidUser(request.resource.data));
+      
+      allow delete: if false;
+    }
+
+    match /scans/{scanId} {
+      allow read: if isAuthenticated() && (isOwner(resource.data.userId) || isOperator() || isAdmin());
+      allow create: if isAuthenticated() && isValidScan(request.resource.data);
+      allow update, delete: if false;
+    }
+
+    match /profiles/{profileId} {
+      allow read: if isAuthenticated() && (isOwner(resource.data.userId) || isOperator() || isAdmin());
+      allow create: if isAuthenticated() && isValidProfile(request.resource.data);
+      allow update: if isAuthenticated() && (isOwner(resource.data.userId) || isOperator() || isAdmin()) && isValidProfile(request.resource.data);
+      allow delete: if false;
+    }
+  }
+}
