@@ -873,22 +873,22 @@ export default function App() {
 
   if (!isAuthReady) {
     return (
-      <div className="min-h-screen bg-zinc-50 flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-zinc-400" />
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+        <Loader2 className="w-8 h-8 animate-spin text-slate-400" />
       </div>
     );
   }
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-zinc-50 flex flex-col items-center justify-center p-6">
-        <div className="max-w-md w-full bg-white rounded-3xl shadow-xl shadow-zinc-200/50 p-8 space-y-6">
+      <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-6">
+        <div className="max-w-md w-full bg-white rounded-3xl shadow-xl shadow-slate-200/50 p-8 space-y-6">
           <div className="text-center space-y-2">
-            <div className="w-16 h-16 bg-zinc-900 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-primary/20">
               <Fuel className="w-8 h-8 text-white" />
             </div>
-            <h1 className="text-3xl font-bold tracking-tight text-zinc-900">Fuel System</h1>
-            <p className="text-zinc-500">Sign in to access your terminal</p>
+            <h1 className="text-3xl font-black tracking-tight text-slate-900 uppercase">Fuel System</h1>
+            <p className="text-slate-500 font-medium">Sign in to access your terminal</p>
           </div>
 
           {error && (
@@ -900,30 +900,30 @@ export default function App() {
 
           <form onSubmit={handleEmailAuth} className="space-y-4">
             <div className="space-y-1">
-              <label className="text-xs font-bold uppercase text-zinc-400 tracking-wider ml-1">Email Address</label>
+              <label className="text-xs font-bold uppercase text-slate-400 tracking-wider ml-1">Email Address</label>
               <div className="relative">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-400" />
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
                 <input 
                   type="email" 
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="name@example.com"
-                  className="w-full pl-12 pr-4 py-4 bg-zinc-50 border border-zinc-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-zinc-900/10 transition-all"
+                  className="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary/10 transition-all"
                   required
                 />
               </div>
             </div>
 
             <div className="space-y-1">
-              <label className="text-xs font-bold uppercase text-zinc-400 tracking-wider ml-1">Password</label>
+              <label className="text-xs font-bold uppercase text-slate-400 tracking-wider ml-1">Password</label>
               <div className="relative">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-400" />
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
                 <input 
                   type="password" 
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full pl-12 pr-4 py-4 bg-zinc-50 border border-zinc-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-zinc-900/10 transition-all"
+                  className="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary/10 transition-all"
                   required
                 />
               </div>
@@ -931,14 +931,14 @@ export default function App() {
 
             {authMode === 'signup' && (
               <div className="space-y-1">
-                <label className="text-xs font-bold uppercase text-zinc-400 tracking-wider ml-1">Account Type</label>
+                <label className="text-xs font-bold uppercase text-slate-400 tracking-wider ml-1">Account Type</label>
                 <div className="grid grid-cols-2 gap-2">
                   <button
                     type="button"
                     onClick={() => setRole('operator')}
                     className={cn(
                       "py-3 rounded-xl text-xs font-bold uppercase tracking-widest border-2 transition-all",
-                      role === 'operator' ? "bg-zinc-900 border-zinc-900 text-white shadow-lg shadow-zinc-900/20" : "bg-white border-zinc-100 text-zinc-400 hover:border-zinc-200"
+                      role === 'operator' ? "bg-primary border-primary text-white shadow-lg shadow-primary/20" : "bg-white border-slate-100 text-slate-400 hover:border-slate-200"
                     )}
                   >
                     Pump Terminal
@@ -948,7 +948,7 @@ export default function App() {
                     onClick={() => setRole('admin')}
                     className={cn(
                       "py-3 rounded-xl text-xs font-bold uppercase tracking-widest border-2 transition-all",
-                      role === 'admin' ? "bg-zinc-900 border-zinc-900 text-white shadow-lg shadow-zinc-900/20" : "bg-white border-zinc-100 text-zinc-400 hover:border-zinc-200"
+                      role === 'admin' ? "bg-primary border-primary text-white shadow-lg shadow-primary/20" : "bg-white border-slate-100 text-slate-400 hover:border-slate-200"
                     )}
                   >
                     Full Dashboard
@@ -960,7 +960,7 @@ export default function App() {
             <button 
               type="submit"
               disabled={authLoading}
-              className="w-full py-4 bg-zinc-900 hover:bg-zinc-800 disabled:opacity-50 text-white rounded-2xl font-bold flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
+              className="w-full py-4 bg-primary hover:bg-primary/90 disabled:opacity-50 text-white rounded-2xl font-bold flex items-center justify-center gap-2 transition-all active:scale-[0.98] shadow-xl shadow-primary/20"
             >
               {authLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : (
                 authMode === 'signup' ? <UserPlus className="w-5 h-5" /> : <LogIn className="w-5 h-5" />
@@ -970,24 +970,24 @@ export default function App() {
           </form>
 
           <div className="relative py-2">
-            <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-zinc-100"></div></div>
-            <div className="relative flex justify-center text-xs uppercase"><span className="bg-white px-2 text-zinc-400 font-bold tracking-widest">Or continue with</span></div>
+            <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-slate-100"></div></div>
+            <div className="relative flex justify-center text-xs uppercase"><span className="bg-white px-2 text-slate-400 font-bold tracking-widest">Or continue with</span></div>
           </div>
 
           <button 
             onClick={loginWithGoogle}
             disabled={authLoading}
-            className="w-full py-4 bg-white border border-zinc-200 hover:bg-zinc-50 text-zinc-900 rounded-2xl font-semibold flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
+            className="w-full py-4 bg-white border border-slate-200 hover:bg-slate-50 text-slate-900 rounded-2xl font-semibold flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
           >
             <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" className="w-5 h-5" alt="Google" />
             Google Login
           </button>
 
-          <p className="text-center text-sm text-zinc-500">
+          <p className="text-center text-sm text-slate-500">
             {authMode === 'signup' ? 'Already have an account?' : "Don't have an account?"}{' '}
             <button 
               onClick={() => setAuthMode(authMode === 'signup' ? 'signin' : 'signup')}
-              className="text-zinc-900 font-bold hover:underline"
+              className="text-primary font-bold hover:underline"
             >
               {authMode === 'signup' ? 'Sign In' : 'Create one'}
             </button>
@@ -998,23 +998,23 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50 text-zinc-900 font-sans">
+    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-zinc-100">
+      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-slate-200">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-zinc-900 rounded-xl flex items-center justify-center">
+            <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/20">
               <Fuel className="w-6 h-6 text-white" />
             </div>
-            <h1 className="text-xl font-bold tracking-tight hidden sm:block">Fuel Allocation System</h1>
+            <h1 className="text-xl font-black tracking-tight hidden sm:block text-slate-900 uppercase italic">Fuel BD Pro</h1>
           </div>
           <div className="flex items-center gap-2">
-            <nav className="flex items-center bg-zinc-100 p-1 rounded-xl mr-2">
+            <nav className="flex items-center bg-slate-100 p-1 rounded-xl mr-2">
             <button 
               onClick={() => setView('scan')}
               className={cn(
                 "px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all",
-                view === 'scan' ? "bg-white text-zinc-900 shadow-sm" : "text-zinc-500 hover:text-zinc-700"
+                view === 'scan' ? "bg-white text-primary shadow-sm" : "text-slate-500 hover:text-slate-700"
               )}
             >
               Scan
@@ -1023,7 +1023,7 @@ export default function App() {
               onClick={() => setView('history')}
               className={cn(
                 "px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all",
-                view === 'history' ? "bg-white text-zinc-900 shadow-sm" : "text-zinc-500 hover:text-zinc-700"
+                view === 'history' ? "bg-white text-primary shadow-sm" : "text-slate-500 hover:text-slate-700"
               )}
             >
               History
@@ -1033,7 +1033,7 @@ export default function App() {
                 onClick={() => setView('admin')}
                 className={cn(
                   "px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all",
-                  view === 'admin' ? "bg-white text-zinc-900 shadow-sm" : "text-zinc-500 hover:text-zinc-700"
+                  view === 'admin' ? "bg-white text-primary shadow-sm" : "text-slate-500 hover:text-slate-700"
                 )}
               >
                 Dashboard
@@ -1041,15 +1041,15 @@ export default function App() {
             )}
           </nav>
           <div className="hidden sm:flex flex-col items-end mr-2">
-            <span className="text-[10px] font-bold uppercase text-zinc-400 tracking-widest">User</span>
-            <span className="text-xs font-medium text-zinc-600">{user.email}</span>
+            <span className="text-[10px] font-bold uppercase text-slate-400 tracking-widest">Operator</span>
+            <span className="text-xs font-bold text-slate-600">{user.email?.split('@')[0]}</span>
           </div>
           <button 
             onClick={logout}
-            className="p-2 hover:bg-zinc-100 rounded-full transition-colors"
+            className="p-2 hover:bg-slate-100 rounded-full transition-colors text-slate-400 hover:text-destructive"
             title="Logout"
           >
-            <LogOut className="w-5 h-5 text-zinc-500" />
+            <LogOut className="w-5 h-5" />
           </button>
           </div>
         </div>
@@ -1058,11 +1058,42 @@ export default function App() {
       <main className="max-w-5xl mx-auto p-4 sm:p-6 lg:p-8 space-y-8 pb-32">
         {view === 'scan' ? (
           <>
+            {/* Dashboard Summary */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 animate-in fade-in slide-in-from-top-4 duration-500">
+              <div className="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm flex items-center gap-4">
+                <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600">
+                  <Activity className="w-6 h-6" />
+                </div>
+                <div>
+                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Today's Scans</p>
+                  <p className="text-xl font-black text-slate-900">{history.filter(h => new Date(h.scannedAt) > new Date(new Date().setHours(0,0,0,0))).length}</p>
+                </div>
+              </div>
+              <div className="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm flex items-center gap-4">
+                <div className="w-12 h-12 bg-green-50 rounded-2xl flex items-center justify-center text-green-600">
+                  <Fuel className="w-6 h-6" />
+                </div>
+                <div>
+                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Fuel Quota</p>
+                  <p className="text-xl font-black text-slate-900">{quotas.used} / {quotas.total} L</p>
+                </div>
+              </div>
+              <div className="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm flex items-center gap-4">
+                <div className="w-12 h-12 bg-purple-50 rounded-2xl flex items-center justify-center text-purple-600">
+                  <UserIcon className="w-6 h-6" />
+                </div>
+                <div>
+                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Total Profiles</p>
+                  <p className="text-xl font-black text-slate-900">{profiles.length}</p>
+                </div>
+              </div>
+            </div>
+
             {/* Scan Type Selector */}
             <div className="grid grid-cols-2 gap-3 sm:gap-4">
               {[
-                { id: 'FACE', label: 'Face', icon: UserIcon },
-                { id: 'VERIFY', label: 'Verify', icon: ShieldCheck },
+                { id: 'FACE', label: 'Register Face', icon: UserIcon, color: 'bg-blue-600' },
+                { id: 'VERIFY', label: 'Verify & Dispense', icon: ShieldCheck, color: 'bg-green-600' },
               ].map((type) => (
                 <button
                   key={type.id}
@@ -1074,19 +1105,19 @@ export default function App() {
                     setRecentScanAlert(null);
                   }}
                   className={cn(
-                    "flex flex-col items-center gap-3 p-4 rounded-[2rem] border-2 transition-all active:scale-95",
+                    "flex flex-col items-center gap-3 p-6 rounded-3xl border-2 transition-all active:scale-95",
                     activeScanType === type.id 
-                      ? "bg-zinc-900 border-zinc-900 text-white shadow-xl shadow-zinc-900/20" 
-                      : "bg-white border-zinc-100 text-zinc-500 hover:border-zinc-300"
+                      ? `${type.color} border-transparent text-white shadow-xl shadow-slate-900/10` 
+                      : "bg-white border-slate-100 text-slate-500 hover:border-slate-300"
                   )}
                 >
                   <div className={cn(
-                    "w-10 h-10 rounded-2xl flex items-center justify-center transition-colors",
-                    activeScanType === type.id ? "bg-white/10" : "bg-zinc-50"
+                    "w-12 h-12 rounded-2xl flex items-center justify-center transition-colors",
+                    activeScanType === type.id ? "bg-white/20" : "bg-slate-50"
                   )}>
-                    <type.icon className="w-5 h-5" />
+                    <type.icon className="w-6 h-6" />
                   </div>
-                  <span className="text-[10px] font-black uppercase tracking-widest">{type.label}</span>
+                  <span className="text-xs font-black uppercase tracking-widest">{type.label}</span>
                 </button>
               ))}
             </div>
@@ -1115,7 +1146,7 @@ export default function App() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
               {/* Camera Section */}
               <section className="space-y-4 lg:sticky lg:top-24">
-                <div className="relative aspect-[4/3] bg-zinc-900 rounded-[3rem] overflow-hidden shadow-2xl shadow-zinc-900/30 border-8 border-white">
+                <div className="relative aspect-[4/3] bg-slate-900 rounded-3xl overflow-hidden shadow-2xl shadow-slate-900/20 border-8 border-white">
                 {!result && !loading && (activeScanType === 'FACE' || !pendingScan) ? (
                   <div className="w-full h-full relative">
                     <Webcam
@@ -1160,14 +1191,14 @@ export default function App() {
                     </div>
                   </div>
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center bg-zinc-50">
+                  <div className="w-full h-full flex items-center justify-center bg-slate-50">
                     {loading ? (
                       <div className="text-center space-y-6">
                         <div className="relative inline-block">
-                          <Loader2 className="w-16 h-16 animate-spin text-zinc-900 mx-auto" />
-                          <div className="absolute inset-0 blur-2xl bg-zinc-900/10 animate-pulse" />
+                          <Loader2 className="w-16 h-16 animate-spin text-primary mx-auto" />
+                          <div className="absolute inset-0 blur-2xl bg-primary/10 animate-pulse" />
                         </div>
-                        <p className="text-zinc-900 font-black uppercase tracking-[0.2em] text-xs animate-pulse">Analyzing Data...</p>
+                        <p className="text-slate-900 font-black uppercase tracking-[0.2em] text-xs animate-pulse">Analyzing Data...</p>
                       </div>
                     ) : (result?.record?.imageUrl || pendingScan?.imageUrl) ? (
                       <img 
@@ -1176,7 +1207,7 @@ export default function App() {
                         className="w-full h-full object-cover"
                       />
                     ) : (
-                      <div className="text-zinc-300 flex flex-col items-center gap-4">
+                      <div className="text-slate-300 flex flex-col items-center gap-4">
                         <Camera className="w-16 h-16 opacity-10" />
                         <p className="font-black uppercase tracking-widest text-[10px]">Ready to scan</p>
                       </div>
@@ -1186,8 +1217,8 @@ export default function App() {
                 
                 {/* Scanning Effect */}
                 {loading && (
-                  <div className="absolute inset-0 bg-zinc-900/5 pointer-events-none overflow-hidden">
-                    <div className="w-full h-1 bg-zinc-900/40 absolute top-0 animate-[scan_2s_linear_infinite]" />
+                  <div className="absolute inset-0 bg-primary/5 pointer-events-none overflow-hidden">
+                    <div className="w-full h-1 bg-primary/40 absolute top-0 animate-[scan_2s_linear_infinite]" />
                   </div>
                 )}
               </div>
@@ -1197,7 +1228,7 @@ export default function App() {
                   <button 
                     onClick={handleScan}
                     disabled={loading}
-                    className="flex-1 py-6 bg-zinc-900 hover:bg-zinc-800 disabled:opacity-50 text-white rounded-[2rem] font-black text-xl flex items-center justify-center gap-4 transition-all active:scale-[0.98] shadow-2xl shadow-zinc-900/40"
+                    className="flex-1 py-6 bg-primary hover:bg-primary/90 disabled:opacity-50 text-white rounded-3xl font-black text-xl flex items-center justify-center gap-4 transition-all active:scale-[0.98] shadow-2xl shadow-primary/20"
                   >
                     <Camera className="w-7 h-7" />
                     SCAN {activeScanType}
@@ -1205,7 +1236,7 @@ export default function App() {
                 ) : (
                   <button 
                     onClick={() => { setResult(null); setPendingScan(null); setError(null); setRecentScanAlert(null); }}
-                    className="flex-1 py-6 bg-white border-4 border-zinc-900 text-zinc-900 rounded-[2rem] font-black text-xl flex items-center justify-center gap-4 transition-all active:scale-[0.98]"
+                    className="flex-1 py-6 bg-white border-4 border-slate-900 text-slate-900 rounded-3xl font-black text-xl flex items-center justify-center gap-4 transition-all active:scale-[0.98]"
                   >
                     <RefreshCw className="w-7 h-7" />
                     {pendingScan ? 'CANCEL' : 'NEW SCAN'}
@@ -1220,14 +1251,14 @@ export default function App() {
                 <div className="bg-red-50 border border-red-100 p-6 rounded-3xl flex items-start gap-4 animate-in fade-in slide-in-from-top-4">
                   <AlertCircle className="w-6 h-6 text-red-500 shrink-0 mt-0.5" />
                   <div>
-                    <h3 className="font-bold text-red-900">Scan Failed</h3>
-                    <p className="text-red-700 text-sm">{error}</p>
+                    <h3 className="font-bold text-red-900 uppercase text-xs tracking-widest">Scan Failed</h3>
+                    <p className="text-red-700 text-sm font-medium mt-1">{error}</p>
                   </div>
                 </div>
               )}
 
               {pendingScan && (
-                <div className="bg-white p-8 rounded-3xl border-2 border-zinc-900 shadow-xl shadow-zinc-200/50 animate-in fade-in slide-in-from-bottom-4 space-y-6">
+                <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-xl shadow-slate-200/50 animate-in fade-in slide-in-from-bottom-4 space-y-6">
                   {/* Alert inside confirmation UI */}
                   {recentScanAlert && (
                     <div className="bg-amber-50 border-2 border-amber-200 p-4 rounded-2xl flex items-start gap-3">
@@ -1257,7 +1288,7 @@ export default function App() {
                         <AlertCircle className="w-5 h-5 text-red-600" />
                       )}
                       <div className="space-y-0.5">
-                        <p className="text-[10px] font-black uppercase tracking-widest text-zinc-400">Verification Status</p>
+                        <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Verification Status</p>
                         <p className={cn(
                           "text-xs font-bold",
                           (pendingScan.extractedData.toLowerCase().includes((pendingScan.nidName || pendingScan.licenseName || '').toLowerCase()) || 
@@ -1275,10 +1306,10 @@ export default function App() {
                   )}
 
                   <div className="space-y-2">
-                    <span className="text-[10px] font-bold uppercase text-zinc-400 tracking-widest">Verify Extracted Data</span>
+                    <span className="text-[10px] font-black uppercase text-slate-400 tracking-widest">Verify Extracted Data</span>
                     <div className="flex flex-col gap-4">
                       <div className="space-y-1">
-                        <label className="text-[10px] font-bold uppercase text-zinc-400 tracking-widest">
+                        <label className="text-[10px] font-black uppercase text-slate-400 tracking-widest">
                           {activeScanType === 'FACE' ? 'Person Name / Description' : 'Extracted Data'}
                         </label>
                         {activeScanType === 'FACE' ? (
@@ -1289,7 +1320,7 @@ export default function App() {
                             readOnly={userRole === 'operator'}
                             className={cn(
                               "w-full text-sm border-2 rounded-2xl px-6 py-4 focus:outline-none transition-all min-h-[80px]",
-                              userRole === 'operator' ? "bg-zinc-100 border-zinc-100 cursor-not-allowed" : "bg-zinc-50 border-zinc-200 focus:border-zinc-900"
+                              userRole === 'operator' ? "bg-slate-100 border-slate-100 cursor-not-allowed" : "bg-slate-50 border-slate-200 focus:border-primary"
                             )}
                           />
                         ) : (
@@ -1300,19 +1331,19 @@ export default function App() {
                             readOnly={userRole === 'operator'}
                             className={cn(
                               "w-full text-2xl font-black uppercase tracking-widest border-2 rounded-2xl px-6 py-4 focus:outline-none transition-all",
-                              userRole === 'operator' ? "bg-zinc-100 border-zinc-100 cursor-not-allowed" : "bg-zinc-50 border-zinc-200 focus:border-zinc-900"
+                              userRole === 'operator' ? "bg-slate-100 border-slate-100 cursor-not-allowed" : "bg-slate-50 border-slate-200 focus:border-primary"
                             )}
                           />
                         )}
                       </div>
 
                       {activeScanType === 'FACE' && (
-                        <div className="grid grid-cols-1 gap-4 pt-4 border-t border-zinc-100">
+                        <div className="grid grid-cols-1 gap-4 pt-4 border-t border-slate-100">
                           <div className="space-y-1">
-                            <label className="text-[10px] font-bold uppercase text-zinc-400 tracking-widest flex items-center justify-between">
+                            <label className="text-[10px] font-black uppercase text-slate-400 tracking-widest flex items-center justify-between">
                               <span className="flex items-center gap-2"><Car className="w-3 h-3" /> Plate Number</span>
                               {userRole !== 'operator' && (
-                                <button onClick={() => setSubScanModal('PLATE')} className="text-zinc-900 hover:underline flex items-center gap-1">
+                                <button onClick={() => setSubScanModal('PLATE')} className="text-primary hover:underline flex items-center gap-1">
                                   <Camera className="w-3 h-3" /> Scan
                                 </button>
                               )}
@@ -1325,15 +1356,15 @@ export default function App() {
                               readOnly={userRole === 'operator'}
                               className={cn(
                                 "w-full text-sm font-bold uppercase tracking-widest border-2 rounded-xl px-4 py-3 focus:outline-none transition-all",
-                                userRole === 'operator' ? "bg-zinc-100 border-zinc-100 cursor-not-allowed" : "bg-zinc-50 border-zinc-200 focus:border-zinc-900"
+                                userRole === 'operator' ? "bg-slate-100 border-slate-100 cursor-not-allowed" : "bg-slate-50 border-slate-200 focus:border-primary"
                               )}
                             />
                           </div>
                           <div className="space-y-1">
-                            <label className="text-[10px] font-bold uppercase text-zinc-400 tracking-widest flex items-center justify-between">
+                            <label className="text-[10px] font-black uppercase text-slate-400 tracking-widest flex items-center justify-between">
                               <span className="flex items-center gap-2"><CreditCard className="w-3 h-3" /> Driving License</span>
                               {userRole !== 'operator' && (
-                                <button onClick={() => setSubScanModal('LICENSE')} className="text-zinc-900 hover:underline flex items-center gap-1">
+                                <button onClick={() => setSubScanModal('LICENSE')} className="text-primary hover:underline flex items-center gap-1">
                                   <Camera className="w-3 h-3" /> Scan
                                 </button>
                               )}
@@ -1346,15 +1377,15 @@ export default function App() {
                               readOnly={userRole === 'operator'}
                               className={cn(
                                 "w-full text-sm font-bold uppercase tracking-widest border-2 rounded-xl px-4 py-3 focus:outline-none transition-all",
-                                userRole === 'operator' ? "bg-zinc-100 border-zinc-100 cursor-not-allowed" : "bg-zinc-50 border-zinc-200 focus:border-zinc-900"
+                                userRole === 'operator' ? "bg-slate-100 border-slate-100 cursor-not-allowed" : "bg-slate-50 border-slate-200 focus:border-primary"
                               )}
                             />
                           </div>
                           <div className="space-y-1">
-                            <label className="text-[10px] font-bold uppercase text-zinc-400 tracking-widest flex items-center justify-between">
+                            <label className="text-[10px] font-black uppercase text-slate-400 tracking-widest flex items-center justify-between">
                               <span className="flex items-center gap-2"><IdCard className="w-3 h-3" /> NID Card</span>
                               {userRole !== 'operator' && (
-                                <button onClick={() => setSubScanModal('NID')} className="text-zinc-900 hover:underline flex items-center gap-1">
+                                <button onClick={() => setSubScanModal('NID')} className="text-primary hover:underline flex items-center gap-1">
                                   <Camera className="w-3 h-3" /> Scan
                                 </button>
                               )}
@@ -1367,15 +1398,15 @@ export default function App() {
                               readOnly={userRole === 'operator'}
                               className={cn(
                                 "w-full text-sm font-bold uppercase tracking-widest border-2 rounded-xl px-4 py-3 focus:outline-none transition-all",
-                                userRole === 'operator' ? "bg-zinc-100 border-zinc-100 cursor-not-allowed" : "bg-zinc-50 border-zinc-200 focus:border-zinc-900"
+                                userRole === 'operator' ? "bg-slate-100 border-slate-100 cursor-not-allowed" : "bg-slate-50 border-slate-200 focus:border-primary"
                               )}
                             />
                           </div>
                           <div className="space-y-1">
-                            <label className="text-[10px] font-bold uppercase text-zinc-400 tracking-widest flex items-center justify-between">
+                            <label className="text-[10px] font-black uppercase text-slate-400 tracking-widest flex items-center justify-between">
                               <span className="flex items-center gap-2"><Search className="w-3 h-3" /> Address</span>
                               {userRole !== 'operator' && (
-                                <button onClick={() => setSubScanModal('NID_BACK')} className="text-zinc-900 hover:underline flex items-center gap-1">
+                                <button onClick={() => setSubScanModal('NID_BACK')} className="text-primary hover:underline flex items-center gap-1">
                                   <Camera className="w-3 h-3" /> NID Back Scan
                                 </button>
                               )}
@@ -1387,11 +1418,11 @@ export default function App() {
                               readOnly={userRole === 'operator'}
                               className={cn(
                                 "w-full text-sm border-2 rounded-xl px-4 py-3 focus:outline-none transition-all min-h-[60px]",
-                                userRole === 'operator' ? "bg-zinc-100 border-zinc-100 cursor-not-allowed" : "bg-zinc-50 border-zinc-200 focus:border-zinc-900"
+                                userRole === 'operator' ? "bg-slate-100 border-slate-100 cursor-not-allowed" : "bg-slate-50 border-slate-200 focus:border-primary"
                               )}
                             />
                             {pendingScan.nidBackImageUrl && (
-                              <div className="mt-2 aspect-video rounded-xl overflow-hidden border border-zinc-200">
+                              <div className="mt-2 aspect-video rounded-xl overflow-hidden border border-slate-200">
                                 <img src={pendingScan.nidBackImageUrl} className="w-full h-full object-cover" alt="NID Back Preview" />
                               </div>
                             )}
@@ -1399,13 +1430,13 @@ export default function App() {
                         </div>
                       )}
                     </div>
-                    <p className="text-xs text-zinc-500">Please confirm if the information is correct. You can edit it if needed.</p>
+                    <p className="text-xs text-slate-500 font-medium">Please confirm if the information is correct. You can edit it if needed.</p>
                   </div>
 
                   <button 
                     onClick={handleConfirmSave}
                     disabled={loading}
-                    className="w-full py-5 bg-zinc-900 hover:bg-zinc-800 text-white rounded-2xl font-bold text-lg flex items-center justify-center gap-3 transition-all active:scale-[0.98] shadow-lg shadow-zinc-900/20"
+                    className="w-full py-5 bg-primary hover:bg-primary/90 text-white rounded-2xl font-black text-lg flex items-center justify-center gap-3 transition-all active:scale-[0.98] shadow-lg shadow-primary/20"
                   >
                     {loading ? <Loader2 className="w-6 h-6 animate-spin" /> : <CheckCircle2 className="w-6 h-6" />}
                     Confirm & Save
@@ -1434,7 +1465,7 @@ export default function App() {
                         </div>
                       )}
                       <div className="flex items-center gap-4">
-                        <span className="text-[10px] font-bold uppercase text-zinc-400 tracking-widest shrink-0">
+                        <span className="text-[10px] font-bold uppercase text-slate-400 tracking-widest shrink-0">
                           {activeScanType === 'VERIFY' ? 'Verified' : activeScanType} Data
                         </span>
                         <h2 className="text-xl font-black uppercase tracking-widest truncate max-w-[200px]">
@@ -1506,7 +1537,7 @@ export default function App() {
                       setResult(null);
                       setPendingScan(null);
                     }}
-                    className="w-full mt-4 py-4 bg-zinc-100 hover:bg-zinc-200 text-zinc-900 rounded-2xl font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 transition-all active:scale-95"
+                    className="w-full mt-4 py-4 bg-slate-100 hover:bg-slate-200 text-slate-900 rounded-2xl font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 transition-all active:scale-95"
                   >
                     <RefreshCw className="w-4 h-4" />
                     New Scan
@@ -1520,16 +1551,16 @@ export default function App() {
           <section className="space-y-8 animate-in fade-in slide-in-from-right-4">
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6">
               <div className="space-y-1">
-                <h2 className="text-3xl font-black tracking-tight text-zinc-900 uppercase italic">Admin Control Panel</h2>
-                <p className="text-zinc-500 text-sm font-medium">Manage system records and person profiles</p>
+                <h2 className="text-3xl font-black tracking-tight text-slate-900 uppercase italic">Admin Control Panel</h2>
+                <p className="text-slate-500 text-sm font-medium">Manage system records and person profiles</p>
               </div>
               
-              <div className="flex flex-wrap p-1 bg-zinc-100 rounded-2xl w-fit gap-1">
+              <div className="flex flex-wrap p-1 bg-slate-100 rounded-2xl w-fit gap-1">
                 <button 
                   onClick={() => setAdminSubView('scans')}
                   className={cn(
                     "px-4 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-2",
-                    adminSubView === 'scans' ? "bg-white text-zinc-900 shadow-lg shadow-zinc-200" : "text-zinc-400 hover:text-zinc-600"
+                    adminSubView === 'scans' ? "bg-white text-primary shadow-lg shadow-slate-200" : "text-slate-400 hover:text-slate-600"
                   )}
                 >
                   <History className="w-4 h-4" />
@@ -1539,7 +1570,7 @@ export default function App() {
                   onClick={() => setAdminSubView('profiles')}
                   className={cn(
                     "px-4 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-2",
-                    adminSubView === 'profiles' ? "bg-white text-zinc-900 shadow-lg shadow-zinc-200" : "text-zinc-400 hover:text-zinc-600"
+                    adminSubView === 'profiles' ? "bg-white text-primary shadow-lg shadow-slate-200" : "text-slate-400 hover:text-slate-600"
                   )}
                 >
                   <UserIcon className="w-4 h-4" />
@@ -1549,7 +1580,7 @@ export default function App() {
                   onClick={() => setAdminSubView('reports')}
                   className={cn(
                     "px-4 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-2",
-                    adminSubView === 'reports' ? "bg-white text-zinc-900 shadow-lg shadow-zinc-200" : "text-zinc-400 hover:text-zinc-600"
+                    adminSubView === 'reports' ? "bg-white text-primary shadow-lg shadow-slate-200" : "text-slate-400 hover:text-slate-600"
                   )}
                 >
                   <BarChart3 className="w-4 h-4" />
@@ -1559,7 +1590,7 @@ export default function App() {
                   onClick={() => setAdminSubView('pricing')}
                   className={cn(
                     "px-4 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-2",
-                    adminSubView === 'pricing' ? "bg-white text-zinc-900 shadow-lg shadow-zinc-200" : "text-zinc-400 hover:text-zinc-600"
+                    adminSubView === 'pricing' ? "bg-white text-primary shadow-lg shadow-slate-200" : "text-slate-400 hover:text-slate-600"
                   )}
                 >
                   <DollarSign className="w-4 h-4" />
@@ -1569,7 +1600,7 @@ export default function App() {
                   onClick={() => setAdminSubView('quota')}
                   className={cn(
                     "px-4 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-2",
-                    adminSubView === 'quota' ? "bg-white text-zinc-900 shadow-lg shadow-zinc-200" : "text-zinc-400 hover:text-zinc-600"
+                    adminSubView === 'quota' ? "bg-white text-primary shadow-lg shadow-slate-200" : "text-slate-400 hover:text-slate-600"
                   )}
                 >
                   <Database className="w-4 h-4" />
@@ -1579,7 +1610,7 @@ export default function App() {
                   onClick={() => setAdminSubView('settings')}
                   className={cn(
                     "px-4 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-2",
-                    adminSubView === 'settings' ? "bg-white text-zinc-900 shadow-lg shadow-zinc-200" : "text-zinc-400 hover:text-zinc-600"
+                    adminSubView === 'settings' ? "bg-white text-primary shadow-lg shadow-slate-200" : "text-slate-400 hover:text-slate-600"
                   )}
                 >
                   <Settings className="w-4 h-4" />
@@ -1593,23 +1624,23 @@ export default function App() {
                 {historyLoading ? (
                   <div className="flex flex-col items-center justify-center py-32 gap-6">
                     <div className="relative">
-                      <Loader2 className="w-12 h-12 animate-spin text-zinc-900" />
-                      <div className="absolute inset-0 blur-xl bg-zinc-900/10 animate-pulse" />
+                      <Loader2 className="w-12 h-12 animate-spin text-primary" />
+                      <div className="absolute inset-0 blur-xl bg-primary/10 animate-pulse" />
                     </div>
-                    <p className="text-zinc-400 font-black uppercase tracking-widest text-[10px]">Syncing Profiles...</p>
+                    <p className="text-slate-400 font-black uppercase tracking-widest text-[10px]">Syncing Profiles...</p>
                   </div>
                 ) : profiles.length === 0 ? (
-                  <div className="bg-white rounded-[3rem] p-16 text-center space-y-6 border-2 border-dashed border-zinc-100">
-                    <div className="w-20 h-20 bg-zinc-50 rounded-3xl flex items-center justify-center mx-auto">
-                      <UserIcon className="w-10 h-10 text-zinc-200" />
+                  <div className="bg-white rounded-[3rem] p-16 text-center space-y-6 border-2 border-dashed border-slate-100">
+                    <div className="w-20 h-20 bg-slate-50 rounded-3xl flex items-center justify-center mx-auto">
+                      <UserIcon className="w-10 h-10 text-slate-200" />
                     </div>
                     <div className="space-y-2">
                       <h3 className="text-xl font-black uppercase tracking-tight">No Profiles Found</h3>
-                      <p className="text-zinc-500 max-w-xs mx-auto text-sm font-medium">Capture faces to create unified person profiles for tracking.</p>
+                      <p className="text-slate-500 max-w-xs mx-auto text-sm font-medium">Capture faces to create unified person profiles for tracking.</p>
                     </div>
                     <button 
                       onClick={() => { setView('scan'); setActiveScanType('FACE'); }}
-                      className="px-8 py-4 bg-zinc-900 text-white rounded-2xl font-black text-xs uppercase tracking-widest transition-all active:scale-95 shadow-xl shadow-zinc-900/20"
+                      className="px-8 py-4 bg-primary text-white rounded-2xl font-black text-xs uppercase tracking-widest transition-all active:scale-95 shadow-xl shadow-primary/20"
                     >
                       Start Face Scan
                     </button>
@@ -1620,10 +1651,10 @@ export default function App() {
                       <div 
                         key={profile.id}
                         onClick={() => setSelectedProfile(profile)}
-                        className="group bg-white p-6 rounded-[2.5rem] border border-zinc-100 space-y-6 shadow-sm hover:shadow-2xl hover:shadow-zinc-200/50 hover:-translate-y-1 transition-all cursor-pointer active:scale-[0.98]"
+                        className="group bg-white p-6 rounded-[2.5rem] border border-slate-100 space-y-6 shadow-sm hover:shadow-2xl hover:shadow-slate-200/50 hover:-translate-y-1 transition-all cursor-pointer active:scale-[0.98]"
                       >
                         <div className="flex gap-5 items-center">
-                          <div className="w-16 h-16 bg-zinc-100 rounded-[1.5rem] overflow-hidden shrink-0 border-4 border-white shadow-lg group-hover:scale-110 transition-transform">
+                          <div className="w-16 h-16 bg-slate-100 rounded-[1.5rem] overflow-hidden shrink-0 border-4 border-white shadow-lg group-hover:scale-110 transition-transform">
                             <img 
                               src={profile.faceImageUrl} 
                               alt={profile.name} 
@@ -1631,8 +1662,8 @@ export default function App() {
                             />
                           </div>
                           <div className="flex-1 min-w-0 space-y-1">
-                            <h3 className="text-sm font-black uppercase tracking-[0.1em] text-zinc-900 truncate">{profile.name}</h3>
-                            <div className="flex items-center gap-2 text-zinc-400">
+                            <h3 className="text-sm font-black uppercase tracking-[0.1em] text-slate-900 truncate">{profile.name}</h3>
+                            <div className="flex items-center gap-2 text-slate-400">
                               <Clock className="w-3 h-3" />
                               <span className="text-[9px] font-bold uppercase tracking-wider">
                                 {new Date(profile.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
@@ -1643,37 +1674,37 @@ export default function App() {
 
                         <div className="grid grid-cols-1 gap-2">
                           {profile.plateNumber && (
-                            <div className="flex items-center justify-between px-4 py-2.5 bg-zinc-50 rounded-xl border border-zinc-100/50">
+                            <div className="flex items-center justify-between px-4 py-2.5 bg-slate-50 rounded-xl border border-slate-100/50">
                               <div className="flex items-center gap-2">
-                                <Car className="w-3 h-3 text-zinc-400" />
-                                <span className="text-[9px] font-bold uppercase text-zinc-400 tracking-widest">Plate</span>
+                                <Car className="w-3 h-3 text-slate-400" />
+                                <span className="text-[9px] font-bold uppercase text-slate-400 tracking-widest">Plate</span>
                               </div>
-                              <span className="text-[10px] font-black uppercase tracking-widest text-zinc-900">{profile.plateNumber}</span>
+                              <span className="text-[10px] font-black uppercase tracking-widest text-slate-900">{profile.plateNumber}</span>
                             </div>
                           )}
                           {profile.licenseNumber && (
-                            <div className="flex items-center justify-between px-4 py-2.5 bg-zinc-50 rounded-xl border border-zinc-100/50">
+                            <div className="flex items-center justify-between px-4 py-2.5 bg-slate-50 rounded-xl border border-slate-100/50">
                               <div className="flex items-center gap-2">
-                                <CreditCard className="w-3 h-3 text-zinc-400" />
-                                <span className="text-[9px] font-bold uppercase text-zinc-400 tracking-widest">License</span>
+                                <CreditCard className="w-3 h-3 text-slate-400" />
+                                <span className="text-[9px] font-bold uppercase text-slate-400 tracking-widest">License</span>
                               </div>
-                              <span className="text-[10px] font-black uppercase tracking-widest text-zinc-900">{profile.licenseNumber}</span>
+                              <span className="text-[10px] font-black uppercase tracking-widest text-slate-900">{profile.licenseNumber}</span>
                             </div>
                           )}
                           {profile.nidNumber && (
-                            <div className="flex items-center justify-between px-4 py-2.5 bg-zinc-50 rounded-xl border border-zinc-100/50">
+                            <div className="flex items-center justify-between px-4 py-2.5 bg-slate-50 rounded-xl border border-slate-100/50">
                               <div className="flex items-center gap-2">
-                                <IdCard className="w-3 h-3 text-zinc-400" />
-                                <span className="text-[9px] font-bold uppercase text-zinc-400 tracking-widest">NID</span>
+                                <IdCard className="w-3 h-3 text-slate-400" />
+                                <span className="text-[9px] font-bold uppercase text-slate-400 tracking-widest">NID</span>
                               </div>
-                              <span className="text-[10px] font-black uppercase tracking-widest text-zinc-900">{profile.nidNumber}</span>
+                              <span className="text-[10px] font-black uppercase tracking-widest text-slate-900">{profile.nidNumber}</span>
                             </div>
                           )}
                         </div>
                         
-                        <div className="pt-4 border-t border-zinc-50 flex items-center justify-between">
-                          <span className="text-[8px] font-black uppercase tracking-[0.2em] text-zinc-300">View Details</span>
-                          <div className="w-8 h-8 rounded-full bg-zinc-900 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div className="pt-4 border-t border-slate-50 flex items-center justify-between">
+                          <span className="text-[8px] font-black uppercase tracking-[0.2em] text-slate-300">View Details</span>
+                          <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity">
                             <ChevronRight className="w-4 h-4" />
                           </div>
                         </div>
@@ -1686,13 +1717,13 @@ export default function App() {
               <div className="space-y-6">
                 {historyLoading ? (
                   <div className="flex flex-col items-center justify-center py-32 gap-6">
-                    <Loader2 className="w-12 h-12 animate-spin text-zinc-200" />
-                    <p className="text-zinc-400 font-black uppercase tracking-widest text-[10px]">Loading Scans...</p>
+                    <Loader2 className="w-12 h-12 animate-spin text-slate-200" />
+                    <p className="text-slate-400 font-black uppercase tracking-widest text-[10px]">Loading Scans...</p>
                   </div>
                 ) : history.length === 0 ? (
-                  <div className="bg-white rounded-[3rem] p-16 text-center space-y-6 border-2 border-dashed border-zinc-100">
-                    <div className="w-20 h-20 bg-zinc-50 rounded-3xl flex items-center justify-center mx-auto">
-                      <LayoutGrid className="w-10 h-10 text-zinc-200" />
+                  <div className="bg-white rounded-[3rem] p-16 text-center space-y-6 border-2 border-dashed border-slate-100">
+                    <div className="w-20 h-20 bg-slate-50 rounded-3xl flex items-center justify-center mx-auto">
+                      <LayoutGrid className="w-10 h-10 text-slate-200" />
                     </div>
                     <h3 className="text-xl font-black uppercase tracking-tight">No Scans Found</h3>
                   </div>
@@ -1701,9 +1732,9 @@ export default function App() {
                     {history.map((record) => (
                       <div 
                         key={record.id}
-                        className="bg-white p-5 rounded-[2rem] border border-zinc-100 flex gap-5 items-center group hover:border-zinc-900 transition-all cursor-pointer shadow-sm hover:shadow-xl hover:shadow-zinc-200/50"
+                        className="bg-white p-5 rounded-[2rem] border border-slate-100 flex gap-5 items-center group hover:border-primary transition-all cursor-pointer shadow-sm hover:shadow-xl hover:shadow-slate-200/50"
                       >
-                        <div className="w-14 h-14 bg-zinc-100 rounded-2xl overflow-hidden shrink-0 relative border-2 border-white shadow-md">
+                        <div className="w-14 h-14 bg-slate-100 rounded-2xl overflow-hidden shrink-0 relative border-2 border-white shadow-md">
                           <img 
                             src={record.imageUrl} 
                             alt={record.extractedData} 
@@ -1712,22 +1743,22 @@ export default function App() {
                         </div>
                         <div className="flex-1 min-w-0 space-y-1">
                           <div className="flex items-center gap-2">
-                            <span className="text-[8px] font-black uppercase px-2 py-0.5 bg-zinc-900 text-white rounded-full tracking-widest">
+                            <span className="text-[8px] font-black uppercase px-2 py-0.5 bg-primary text-white rounded-full tracking-widest">
                               {record.type}
                             </span>
-                            <span className="text-[8px] font-bold uppercase px-2 py-0.5 bg-zinc-100 text-zinc-500 rounded-full truncate max-w-[80px]">
+                            <span className="text-[8px] font-bold uppercase px-2 py-0.5 bg-slate-100 text-slate-500 rounded-full truncate max-w-[80px]">
                               ID: {record.userId.slice(0, 6)}
                             </span>
                           </div>
-                          <h3 className="text-xs font-black uppercase tracking-widest truncate text-zinc-900">{record.extractedData}</h3>
-                          <div className="flex items-center gap-2 text-zinc-400">
+                          <h3 className="text-xs font-black uppercase tracking-widest truncate text-slate-900">{record.extractedData}</h3>
+                          <div className="flex items-center gap-2 text-slate-400">
                             <Clock className="w-3 h-3" />
                             <span className="text-[9px] font-bold uppercase tracking-wider">
                               {new Date(record.scannedAt).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}
                             </span>
                           </div>
                         </div>
-                        <ChevronRight className="w-5 h-5 text-zinc-200 group-hover:text-zinc-900 transition-colors" />
+                        <ChevronRight className="w-5 h-5 text-slate-200 group-hover:text-primary transition-colors" />
                       </div>
                     ))}
                   </div>
@@ -1735,25 +1766,25 @@ export default function App() {
               </div>
             ) : adminSubView === 'reports' ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-in fade-in slide-in-from-bottom-4">
-                <div className="bg-white p-8 rounded-[3rem] border border-zinc-100 shadow-sm space-y-4">
+                <div className="bg-white p-8 rounded-[3rem] border border-slate-100 shadow-sm space-y-4">
                   <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600">
                     <BarChart3 className="w-6 h-6" />
                   </div>
                   <h3 className="text-lg font-black uppercase tracking-tight">Daily Fuel Report</h3>
-                  <p className="text-zinc-500 text-sm">Summary of fuel dispensed in the last 24 hours.</p>
-                  <button className="w-full py-3 bg-zinc-900 text-white rounded-2xl font-bold text-xs uppercase tracking-widest">View Report</button>
+                  <p className="text-slate-500 text-sm">Summary of fuel dispensed in the last 24 hours.</p>
+                  <button className="w-full py-3 bg-primary text-white rounded-2xl font-bold text-xs uppercase tracking-widest shadow-lg shadow-primary/20">View Report</button>
                 </div>
-                <div className="bg-white p-8 rounded-[3rem] border border-zinc-100 shadow-sm space-y-4">
+                <div className="bg-white p-8 rounded-[3rem] border border-slate-100 shadow-sm space-y-4">
                   <div className="w-12 h-12 bg-purple-50 rounded-2xl flex items-center justify-center text-purple-600">
                     <Activity className="w-6 h-6" />
                   </div>
                   <h3 className="text-lg font-black uppercase tracking-tight">System Activity</h3>
-                  <p className="text-zinc-500 text-sm">Real-time log of all terminal operations.</p>
-                  <button className="w-full py-3 bg-zinc-900 text-white rounded-2xl font-bold text-xs uppercase tracking-widest">View Logs</button>
+                  <p className="text-slate-500 text-sm">Real-time log of all terminal operations.</p>
+                  <button className="w-full py-3 bg-primary text-white rounded-2xl font-bold text-xs uppercase tracking-widest shadow-lg shadow-primary/20">View Logs</button>
                 </div>
               </div>
             ) : adminSubView === 'pricing' ? (
-              <div className="max-w-2xl bg-white p-8 rounded-[3rem] border border-zinc-100 shadow-sm space-y-8 animate-in fade-in slide-in-from-bottom-4">
+              <div className="max-w-2xl bg-white p-8 rounded-[3rem] border border-slate-100 shadow-sm space-y-8 animate-in fade-in slide-in-from-bottom-4">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-green-50 rounded-2xl flex items-center justify-center text-green-600">
                     <DollarSign className="w-6 h-6" />
@@ -1761,33 +1792,33 @@ export default function App() {
                   <h3 className="text-xl font-black uppercase tracking-tight">Fuel Pricing</h3>
                 </div>
                 <div className="space-y-4">
-                  <div className="flex items-center justify-between p-4 bg-zinc-50 rounded-2xl">
-                    <span className="font-bold text-zinc-600 uppercase tracking-widest text-xs">Octane 95</span>
+                  <div className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl">
+                    <span className="font-bold text-slate-600 uppercase tracking-widest text-xs">Octane 95</span>
                     <div className="flex items-center gap-2">
                       <input 
                         type="text" 
                         value={fuelPrices.octane} 
                         onChange={(e) => setFuelPrices({ ...fuelPrices, octane: e.target.value })}
-                        className="bg-white border border-zinc-200 rounded-xl px-4 py-2 text-sm font-black text-right focus:outline-none focus:border-zinc-900 w-32" 
+                        className="bg-white border border-slate-200 rounded-xl px-4 py-2 text-sm font-black text-right focus:outline-none focus:border-primary w-32" 
                       />
-                      <span className="text-[10px] font-black text-zinc-400">BDT/L</span>
+                      <span className="text-[10px] font-black text-slate-400">BDT/L</span>
                     </div>
                   </div>
-                  <div className="flex items-center justify-between p-4 bg-zinc-50 rounded-2xl">
-                    <span className="font-bold text-zinc-600 uppercase tracking-widest text-xs">Diesel</span>
+                  <div className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl">
+                    <span className="font-bold text-slate-600 uppercase tracking-widest text-xs">Diesel</span>
                     <div className="flex items-center gap-2">
                       <input 
                         type="text" 
                         value={fuelPrices.diesel} 
                         onChange={(e) => setFuelPrices({ ...fuelPrices, diesel: e.target.value })}
-                        className="bg-white border border-zinc-200 rounded-xl px-4 py-2 text-sm font-black text-right focus:outline-none focus:border-zinc-900 w-32" 
+                        className="bg-white border border-slate-200 rounded-xl px-4 py-2 text-sm font-black text-right focus:outline-none focus:border-primary w-32" 
                       />
-                      <span className="text-[10px] font-black text-zinc-400">BDT/L</span>
+                      <span className="text-[10px] font-black text-slate-400">BDT/L</span>
                     </div>
                   </div>
                   <button 
                     onClick={() => alert("Pricing updated successfully!")}
-                    className="w-full py-4 bg-zinc-900 text-white rounded-2xl font-bold text-xs uppercase tracking-widest"
+                    className="w-full py-4 bg-primary text-white rounded-2xl font-bold text-xs uppercase tracking-widest shadow-xl shadow-primary/20 transition-all active:scale-95"
                   >
                     Update Pricing
                   </button>
@@ -1795,7 +1826,7 @@ export default function App() {
               </div>
             ) : adminSubView === 'quota' ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-in fade-in slide-in-from-bottom-4">
-                <div className="bg-white p-8 rounded-[3rem] border border-zinc-100 shadow-sm space-y-6">
+                <div className="bg-white p-8 rounded-[3rem] border border-slate-100 shadow-sm space-y-6">
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 bg-amber-50 rounded-2xl flex items-center justify-center text-amber-600">
                       <Database className="w-6 h-6" />
@@ -1803,21 +1834,21 @@ export default function App() {
                     <h3 className="text-xl font-black uppercase tracking-tight">Quota Management</h3>
                   </div>
                   <div className="space-y-4">
-                    <div className="p-4 bg-zinc-50 rounded-2xl space-y-2">
-                      <div className="flex justify-between text-[10px] font-black uppercase text-zinc-400 tracking-widest">
+                    <div className="p-4 bg-slate-50 rounded-2xl space-y-2">
+                      <div className="flex justify-between text-[10px] font-black uppercase text-slate-400 tracking-widest">
                         <span>Monthly Allocation</span>
                         <span>{quotas.used}L / {quotas.total}L</span>
                       </div>
-                      <div className="h-2 bg-zinc-200 rounded-full overflow-hidden">
+                      <div className="h-2 bg-slate-200 rounded-full overflow-hidden">
                         <div 
-                          className="h-full bg-zinc-900 transition-all duration-500" 
+                          className="h-full bg-primary transition-all duration-500" 
                           style={{ width: `${(quotas.used / quotas.total) * 100}%` }} 
                         />
                       </div>
                     </div>
                     <button 
                       onClick={() => setQuotas({ ...quotas, total: quotas.total + 10 })}
-                      className="w-full py-4 bg-zinc-900 text-white rounded-2xl font-bold text-xs uppercase tracking-widest"
+                      className="w-full py-4 bg-primary text-white rounded-2xl font-bold text-xs uppercase tracking-widest shadow-xl shadow-primary/20 transition-all active:scale-95"
                     >
                       Increase Total Quota
                     </button>
@@ -1825,20 +1856,20 @@ export default function App() {
                 </div>
               </div>
             ) : (
-              <div className="max-w-2xl bg-white p-8 rounded-[3rem] border border-zinc-100 shadow-sm space-y-8 animate-in fade-in slide-in-from-bottom-4">
+              <div className="max-w-2xl bg-white p-8 rounded-[3rem] border border-slate-100 shadow-sm space-y-8 animate-in fade-in slide-in-from-bottom-4">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-zinc-50 rounded-2xl flex items-center justify-center text-zinc-900">
+                  <div className="w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center text-primary">
                     <Settings className="w-6 h-6" />
                   </div>
                   <h3 className="text-xl font-black uppercase tracking-tight">System Settings</h3>
                 </div>
                 <div className="space-y-4">
-                  <div className="flex items-center justify-between p-4 bg-zinc-50 rounded-2xl">
-                    <span className="font-bold text-zinc-600 uppercase tracking-widest text-xs">Terminal ID</span>
-                    <span className="font-black text-zinc-900">PUMP-001-DHAKA</span>
+                  <div className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl">
+                    <span className="font-bold text-slate-600 uppercase tracking-widest text-xs">Terminal ID</span>
+                    <span className="font-black text-slate-900">PUMP-001-DHAKA</span>
                   </div>
-                  <div className="flex items-center justify-between p-4 bg-zinc-50 rounded-2xl">
-                    <span className="font-bold text-zinc-600 uppercase tracking-widest text-xs">Auto-Sync</span>
+                  <div className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl">
+                    <span className="font-bold text-slate-600 uppercase tracking-widest text-xs">Auto-Sync</span>
                     <span className="font-black text-green-600">ENABLED</span>
                   </div>
                 </div>
@@ -1848,25 +1879,25 @@ export default function App() {
         ) : (
           <section className="space-y-6 animate-in fade-in slide-in-from-right-4">
             <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-bold tracking-tight">My Scan History</h2>
-              <span className="text-xs font-bold text-zinc-400 uppercase tracking-widest">{history.length} Records</span>
+              <h2 className="text-2xl font-bold tracking-tight text-slate-900">My Scan History</h2>
+              <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">{history.length} Records</span>
             </div>
 
             {historyLoading ? (
               <div className="flex flex-col items-center justify-center py-20 gap-4">
-                <Loader2 className="w-10 h-10 animate-spin text-zinc-200" />
-                <p className="text-zinc-400 font-medium">Loading records...</p>
+                <Loader2 className="w-10 h-10 animate-spin text-primary" />
+                <p className="text-slate-400 font-medium">Loading records...</p>
               </div>
             ) : history.length === 0 ? (
-              <div className="bg-white rounded-3xl p-12 text-center space-y-4 border border-zinc-100">
-                <div className="w-16 h-16 bg-zinc-50 rounded-2xl flex items-center justify-center mx-auto">
-                  <LayoutGrid className="w-8 h-8 text-zinc-200" />
+              <div className="bg-white rounded-3xl p-12 text-center space-y-4 border border-slate-100">
+                <div className="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center mx-auto">
+                  <LayoutGrid className="w-8 h-8 text-slate-200" />
                 </div>
-                <h3 className="text-lg font-bold">No records found</h3>
-                <p className="text-zinc-500 max-w-xs mx-auto">Start scanning items to see them appear here.</p>
+                <h3 className="text-lg font-bold text-slate-900">No records found</h3>
+                <p className="text-slate-500 max-w-xs mx-auto">Start scanning items to see them appear here.</p>
                 <button 
                   onClick={() => setView('scan')}
-                  className="px-6 py-3 bg-zinc-900 text-white rounded-xl font-bold text-sm transition-all active:scale-95"
+                  className="px-6 py-3 bg-primary text-white rounded-xl font-bold text-sm transition-all active:scale-95 shadow-lg shadow-primary/20"
                 >
                   Go to Scanner
                 </button>
@@ -1876,9 +1907,9 @@ export default function App() {
                 {history.map((record) => (
                   <div 
                     key={record.id}
-                    className="bg-white p-4 rounded-3xl border border-zinc-100 flex gap-4 items-center group hover:border-zinc-300 transition-all cursor-pointer"
+                    className="bg-white p-4 rounded-3xl border border-slate-100 flex gap-4 items-center group hover:border-primary transition-all cursor-pointer shadow-sm hover:shadow-xl hover:shadow-slate-200/50"
                   >
-                    <div className="w-12 h-12 bg-zinc-100 rounded-full overflow-hidden shrink-0 relative border-2 border-zinc-50 shadow-sm">
+                    <div className="w-12 h-12 bg-slate-100 rounded-full overflow-hidden shrink-0 relative border-2 border-white shadow-sm">
                       <img 
                         src={record.imageUrl} 
                         alt={record.extractedData} 
@@ -1887,19 +1918,19 @@ export default function App() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2">
-                        <span className="text-[8px] font-bold uppercase px-1.5 py-0.5 bg-zinc-100 text-zinc-500 rounded">
+                        <span className="text-[8px] font-bold uppercase px-1.5 py-0.5 bg-slate-100 text-slate-500 rounded">
                           {record.type}
                         </span>
                       </div>
-                      <h3 className="text-sm font-black uppercase tracking-widest truncate mt-1">{record.extractedData}</h3>
-                      <div className="flex items-center gap-2 text-zinc-400">
+                      <h3 className="text-sm font-black uppercase tracking-widest truncate mt-1 text-slate-900">{record.extractedData}</h3>
+                      <div className="flex items-center gap-2 text-slate-400">
                         <Clock className="w-3 h-3" />
                         <span className="text-[10px] font-medium">
                           {new Date(record.scannedAt).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}
                         </span>
                       </div>
                     </div>
-                    <ChevronRight className="w-5 h-5 text-zinc-200 group-hover:text-zinc-900 transition-colors" />
+                    <ChevronRight className="w-5 h-5 text-slate-200 group-hover:text-primary transition-colors" />
                   </div>
                 ))}
               </div>
@@ -1920,7 +1951,7 @@ export default function App() {
                       setEditProfileData({ ...selectedProfile });
                       setIsEditingProfile(true);
                     }}
-                    className="w-10 h-10 bg-zinc-100 hover:bg-zinc-200 rounded-full flex items-center justify-center text-zinc-500 transition-all active:scale-90"
+                    className="w-10 h-10 bg-slate-100 hover:bg-slate-200 rounded-full flex items-center justify-center text-slate-500 transition-all active:scale-90"
                   >
                     <Pencil className="w-4 h-4" />
                   </button>
@@ -1941,14 +1972,14 @@ export default function App() {
                     setIsEditingProfile(false);
                     setEditProfileData(null);
                   }}
-                  className="w-10 h-10 bg-zinc-100 hover:bg-zinc-200 rounded-full flex items-center justify-center text-zinc-500 transition-all active:scale-90"
+                  className="w-10 h-10 bg-slate-100 hover:bg-slate-200 rounded-full flex items-center justify-center text-slate-500 transition-all active:scale-90"
                 >
                   <X className="w-5 h-5" />
                 </button>
               </div>
               
               <div className="relative group">
-                <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-xl ring-1 ring-zinc-100">
+                <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-xl ring-1 ring-slate-100">
                   <img 
                     src={selectedProfile.faceImageUrl} 
                     alt={selectedProfile.name}
@@ -1961,21 +1992,21 @@ export default function App() {
                 {isEditingProfile && editProfileData ? (
                   <div className="space-y-4">
                     <div className="space-y-1 text-left">
-                      <label className="text-[10px] font-bold uppercase text-zinc-400 tracking-widest ml-4">Full Name</label>
+                      <label className="text-[10px] font-bold uppercase text-slate-400 tracking-widest ml-4">Full Name</label>
                       <input 
                         type="text"
                         value={editProfileData.name}
                         onChange={(e) => setEditProfileData({ ...editProfileData, name: e.target.value })}
-                        className="w-full text-center text-xl font-black bg-zinc-50 border-2 border-zinc-100 rounded-2xl px-6 py-3 focus:outline-none focus:border-zinc-900 transition-all"
+                        className="w-full text-center text-xl font-black bg-slate-50 border-2 border-slate-100 rounded-2xl px-6 py-3 focus:outline-none focus:border-primary transition-all"
                       />
                     </div>
                   </div>
                 ) : (
                   <>
-                    <h3 className="text-2xl font-black text-zinc-900 tracking-tight leading-tight truncate max-w-[250px] mx-auto">
+                    <h3 className="text-2xl font-black text-slate-900 tracking-tight leading-tight truncate max-w-[250px] mx-auto">
                       {selectedProfile.name}
                     </h3>
-                    <div className="flex items-center justify-center gap-1.5 text-zinc-400">
+                    <div className="flex items-center justify-center gap-1.5 text-slate-400">
                       <Clock className="w-3 h-3" />
                       <span className="text-[10px] font-bold uppercase tracking-wider">
                         Created {new Date(selectedProfile.createdAt).toLocaleDateString()}
@@ -1986,7 +2017,7 @@ export default function App() {
                 {!isEditingProfile && (
                   <button 
                     onClick={() => downloadImage(selectedProfile.faceImageUrl, `face_${selectedProfile.name.replace(/\s+/g, '_')}.jpg`)}
-                    className="mt-2 px-4 py-2 bg-zinc-100 hover:bg-zinc-200 text-zinc-900 rounded-xl flex items-center justify-center gap-2 transition-all active:scale-95 text-[10px] font-bold uppercase tracking-widest mx-auto"
+                    className="mt-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-900 rounded-xl flex items-center justify-center gap-2 transition-all active:scale-95 text-[10px] font-bold uppercase tracking-widest mx-auto"
                   >
                     <Download className="w-3 h-3" />
                     Download Photo
@@ -1998,7 +2029,7 @@ export default function App() {
             <div className="p-8 overflow-y-auto max-h-[calc(100vh-24rem)] space-y-8">
               {/* Scanned Documents Section */}
               <div className="space-y-4">
-                <div className="flex items-center gap-2 text-zinc-400">
+                <div className="flex items-center gap-2 text-slate-400">
                   <LayoutGrid className="w-4 h-4" />
                   <span className="text-[10px] font-bold uppercase tracking-widest">Scanned Documents</span>
                 </div>
@@ -2006,30 +2037,30 @@ export default function App() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {/* Plate */}
                   {(selectedProfile.plateImageUrl || isEditingProfile) && (
-                    <div className="bg-zinc-50 rounded-[2.5rem] p-5 border border-zinc-100 space-y-4 flex flex-col">
+                    <div className="bg-slate-50 rounded-[2.5rem] p-5 border border-slate-100 space-y-4 flex flex-col">
                       {selectedProfile.plateImageUrl && (
-                        <div className="relative aspect-video rounded-[1.5rem] overflow-hidden border border-zinc-200 shadow-sm">
+                        <div className="relative aspect-video rounded-[1.5rem] overflow-hidden border border-slate-200 shadow-sm">
                           <img src={selectedProfile.plateImageUrl} className="w-full h-full object-cover" alt="Plate Scan" />
                         </div>
                       )}
                       <div className="flex-1 min-w-0">
-                        <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">Plate Number</p>
+                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Plate Number</p>
                         {isEditingProfile && editProfileData ? (
                           <input 
                             type="text"
                             value={editProfileData.plateNumber || ''}
                             onChange={(e) => setEditProfileData({ ...editProfileData, plateNumber: e.target.value.toUpperCase() })}
-                            className="w-full text-sm font-black uppercase bg-white border border-zinc-200 rounded-lg px-3 py-2 mt-1 focus:outline-none focus:border-zinc-900"
+                            className="w-full text-sm font-black uppercase bg-white border border-slate-200 rounded-lg px-3 py-2 mt-1 focus:outline-none focus:border-primary"
                             placeholder="Enter Plate"
                           />
                         ) : (
-                          <p className="text-base font-black text-zinc-900 truncate uppercase">{selectedProfile.plateNumber}</p>
+                          <p className="text-base font-black text-slate-900 truncate uppercase">{selectedProfile.plateNumber}</p>
                         )}
                       </div>
                       {!isEditingProfile && selectedProfile.plateImageUrl && (
                         <button 
                           onClick={() => downloadImage(selectedProfile.plateImageUrl!, `plate_${selectedProfile.plateNumber}.jpg`)}
-                          className="w-full py-3 bg-zinc-900 text-white rounded-2xl shadow-md flex items-center justify-center gap-2 active:scale-95 transition-all hover:bg-zinc-800 font-bold text-xs uppercase tracking-widest"
+                          className="w-full py-3 bg-primary text-white rounded-2xl shadow-md flex items-center justify-center gap-2 active:scale-95 transition-all hover:bg-primary/90 font-bold text-xs uppercase tracking-widest"
                         >
                           <Download className="w-4 h-4" />
                           Download Plate
@@ -2040,42 +2071,42 @@ export default function App() {
 
                   {/* License */}
                   {(selectedProfile.licenseImageUrl || isEditingProfile) && (
-                    <div className="bg-zinc-50 rounded-[2.5rem] p-5 border border-zinc-100 space-y-4 flex flex-col">
+                    <div className="bg-slate-50 rounded-[2.5rem] p-5 border border-slate-100 space-y-4 flex flex-col">
                       {selectedProfile.licenseImageUrl && (
-                        <div className="relative aspect-video rounded-[1.5rem] overflow-hidden border border-zinc-200 shadow-sm">
+                        <div className="relative aspect-video rounded-[1.5rem] overflow-hidden border border-slate-200 shadow-sm">
                           <img src={selectedProfile.licenseImageUrl} className="w-full h-full object-cover" alt="License Scan" />
                         </div>
                       )}
                       <div className="flex-1 min-w-0">
-                        <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">License Number</p>
+                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">License Number</p>
                         {isEditingProfile && editProfileData ? (
                           <div className="space-y-2 mt-1">
                             <input 
                               type="text"
                               value={editProfileData.licenseNumber || ''}
                               onChange={(e) => setEditProfileData({ ...editProfileData, licenseNumber: e.target.value.toUpperCase() })}
-                              className="w-full text-sm font-black uppercase bg-white border border-zinc-200 rounded-lg px-3 py-2 focus:outline-none focus:border-zinc-900"
+                              className="w-full text-sm font-black uppercase bg-white border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-primary"
                               placeholder="License No"
                             />
                             <input 
                               type="text"
                               value={editProfileData.licenseName || ''}
                               onChange={(e) => setEditProfileData({ ...editProfileData, licenseName: e.target.value })}
-                              className="w-full text-[10px] font-medium bg-white border border-zinc-200 rounded-lg px-3 py-2 focus:outline-none focus:border-zinc-900"
+                              className="w-full text-[10px] font-medium bg-white border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-primary"
                               placeholder="Full Name on License"
                             />
                           </div>
                         ) : (
                           <>
-                            <p className="text-base font-black text-zinc-900 truncate uppercase">{selectedProfile.licenseNumber}</p>
-                            {selectedProfile.licenseName && <p className="text-[10px] font-bold text-zinc-500 uppercase truncate mt-0.5">{selectedProfile.licenseName}</p>}
+                            <p className="text-base font-black text-slate-900 truncate uppercase">{selectedProfile.licenseNumber}</p>
+                            {selectedProfile.licenseName && <p className="text-[10px] font-bold text-slate-500 uppercase truncate mt-0.5">{selectedProfile.licenseName}</p>}
                           </>
                         )}
                       </div>
                       {!isEditingProfile && selectedProfile.licenseImageUrl && (
                         <button 
                           onClick={() => downloadImage(selectedProfile.licenseImageUrl!, `license_${selectedProfile.licenseNumber}.jpg`)}
-                          className="w-full py-3 bg-zinc-900 text-white rounded-2xl shadow-md flex items-center justify-center gap-2 active:scale-95 transition-all hover:bg-zinc-800 font-bold text-xs uppercase tracking-widest"
+                          className="w-full py-3 bg-primary text-white rounded-2xl shadow-md flex items-center justify-center gap-2 active:scale-95 transition-all hover:bg-primary/90 font-bold text-xs uppercase tracking-widest"
                         >
                           <Download className="w-4 h-4" />
                           Download License
@@ -2086,49 +2117,49 @@ export default function App() {
 
                   {/* NID */}
                   {(selectedProfile.nidImageUrl || isEditingProfile) && (
-                    <div className="bg-zinc-50 rounded-[2.5rem] p-5 border border-zinc-100 space-y-4 flex flex-col">
+                    <div className="bg-slate-50 rounded-[2.5rem] p-5 border border-slate-100 space-y-4 flex flex-col">
                       {selectedProfile.nidImageUrl && (
-                        <div className="relative aspect-video rounded-[1.5rem] overflow-hidden border border-zinc-200 shadow-sm">
+                        <div className="relative aspect-video rounded-[1.5rem] overflow-hidden border border-slate-200 shadow-sm">
                           <img src={selectedProfile.nidImageUrl} className="w-full h-full object-cover" alt="NID Scan" />
                         </div>
                       )}
                       <div className="flex-1 min-w-0">
-                        <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">NID Number</p>
+                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">NID Number</p>
                         {isEditingProfile && editProfileData ? (
                           <div className="space-y-2 mt-1">
                             <input 
                               type="text"
                               value={editProfileData.nidNumber || ''}
                               onChange={(e) => setEditProfileData({ ...editProfileData, nidNumber: e.target.value.toUpperCase() })}
-                              className="w-full text-sm font-black uppercase bg-white border border-zinc-200 rounded-lg px-3 py-2 focus:outline-none focus:border-zinc-900"
+                              className="w-full text-sm font-black uppercase bg-white border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-primary"
                               placeholder="NID No"
                             />
                             <input 
                               type="text"
                               value={editProfileData.nidName || ''}
                               onChange={(e) => setEditProfileData({ ...editProfileData, nidName: e.target.value })}
-                              className="w-full text-[10px] font-medium bg-white border border-zinc-200 rounded-lg px-3 py-2 focus:outline-none focus:border-zinc-900"
+                              className="w-full text-[10px] font-medium bg-white border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-primary"
                               placeholder="Full Name on NID"
                             />
                             <input 
                               type="text"
                               value={editProfileData.nidAge || ''}
                               onChange={(e) => setEditProfileData({ ...editProfileData, nidAge: e.target.value })}
-                              className="w-full text-[10px] font-medium bg-white border border-zinc-200 rounded-lg px-3 py-2 focus:outline-none focus:border-zinc-900"
+                              className="w-full text-[10px] font-medium bg-white border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-primary"
                               placeholder="Age"
                             />
                           </div>
                         ) : (
                           <>
-                            <p className="text-base font-black text-zinc-900 truncate uppercase">{selectedProfile.nidNumber}</p>
-                            {selectedProfile.nidName && <p className="text-[10px] font-bold text-zinc-500 uppercase truncate mt-0.5">{selectedProfile.nidName}</p>}
+                            <p className="text-base font-black text-slate-900 truncate uppercase">{selectedProfile.nidNumber}</p>
+                            {selectedProfile.nidName && <p className="text-[10px] font-bold text-slate-500 uppercase truncate mt-0.5">{selectedProfile.nidName}</p>}
                           </>
                         )}
                       </div>
                       {!isEditingProfile && selectedProfile.nidImageUrl && (
                         <button 
                           onClick={() => downloadImage(selectedProfile.nidImageUrl!, `nid_${selectedProfile.nidNumber}.jpg`)}
-                          className="w-full py-3 bg-zinc-900 text-white rounded-2xl shadow-md flex items-center justify-center gap-2 active:scale-95 transition-all hover:bg-zinc-800 font-bold text-xs uppercase tracking-widest"
+                          className="w-full py-3 bg-primary text-white rounded-2xl shadow-md flex items-center justify-center gap-2 active:scale-95 transition-all hover:bg-primary/90 font-bold text-xs uppercase tracking-widest"
                         >
                           <Download className="w-4 h-4" />
                           Download NID
@@ -2141,8 +2172,8 @@ export default function App() {
 
               {/* Address & NID Back Section */}
               {(selectedProfile.address || selectedProfile.nidBackImageUrl || isEditingProfile) && (
-                <div className="pt-6 border-t border-zinc-100 text-left space-y-4">
-                  <div className="flex items-center gap-2 text-zinc-400 mb-2">
+                <div className="pt-6 border-t border-slate-100 text-left space-y-4">
+                  <div className="flex items-center gap-2 text-slate-400 mb-2">
                     <Search className="w-4 h-4" />
                     <span className="text-[10px] font-bold uppercase tracking-widest">Address & NID Back</span>
                   </div>
@@ -2154,32 +2185,32 @@ export default function App() {
                           value={editProfileData.address || ''}
                           onChange={(e) => setEditProfileData({ ...editProfileData, address: e.target.value })}
                           placeholder="Enter Address"
-                          className="w-full text-sm bg-zinc-50 border-2 border-zinc-100 rounded-2xl px-6 py-4 focus:outline-none focus:border-zinc-900 transition-all min-h-[80px]"
+                          className="w-full text-sm bg-slate-50 border-2 border-slate-100 rounded-2xl px-6 py-4 focus:outline-none focus:border-primary transition-all min-h-[80px]"
                         />
                       ) : (
-                        <p className="text-sm font-medium text-zinc-700 bg-zinc-50 p-4 rounded-2xl border border-zinc-100">
+                        <p className="text-sm font-medium text-slate-700 bg-slate-50 p-4 rounded-2xl border border-slate-100">
                           {selectedProfile.address || 'No address recorded'}
                         </p>
                       )}
                     </div>
 
                     {(selectedProfile.nidBackImageUrl || isEditingProfile) && (
-                      <div className="bg-zinc-50 rounded-[2.5rem] p-5 border border-zinc-100 space-y-4 flex flex-col">
+                      <div className="bg-slate-50 rounded-[2.5rem] p-5 border border-slate-100 space-y-4 flex flex-col">
                         {selectedProfile.nidBackImageUrl && (
-                          <div className="relative aspect-video rounded-[1.5rem] overflow-hidden border border-zinc-200 shadow-sm">
+                          <div className="relative aspect-video rounded-[1.5rem] overflow-hidden border border-slate-200 shadow-sm">
                             <img src={selectedProfile.nidBackImageUrl} className="w-full h-full object-cover" alt="NID Back Scan" />
                           </div>
                         )}
                         <div className="flex-1 min-w-0">
-                          <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">NID Back Image</p>
-                          <p className="text-xs font-bold text-zinc-500 uppercase truncate mt-0.5">
+                          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">NID Back Image</p>
+                          <p className="text-xs font-bold text-slate-500 uppercase truncate mt-0.5">
                             {selectedProfile.nidBackImageUrl ? 'Captured' : 'Not Captured'}
                           </p>
                         </div>
                         {!isEditingProfile && selectedProfile.nidBackImageUrl && (
                           <button 
                             onClick={() => downloadImage(selectedProfile.nidBackImageUrl!, `nid_back_${selectedProfile.nidNumber}.jpg`)}
-                            className="w-full py-3 bg-zinc-900 text-white rounded-2xl shadow-md flex items-center justify-center gap-2 active:scale-95 transition-all hover:bg-zinc-800 font-bold text-xs uppercase tracking-widest"
+                            className="w-full py-3 bg-primary text-white rounded-2xl shadow-md flex items-center justify-center gap-2 active:scale-95 transition-all hover:bg-primary/90 font-bold text-xs uppercase tracking-widest"
                           >
                             <Download className="w-4 h-4" />
                             Download Back
@@ -2193,8 +2224,8 @@ export default function App() {
 
               {/* Metadata Section */}
               {selectedProfile.metadata && (
-                <div className="pt-6 border-t border-zinc-100">
-                  <div className="flex items-center gap-2 text-zinc-400 mb-4">
+                <div className="pt-6 border-t border-slate-100">
+                  <div className="flex items-center gap-2 text-slate-400 mb-4">
                     <ShieldCheck className="w-4 h-4" />
                     <span className="text-[10px] font-bold uppercase tracking-widest">Verification Status</span>
                   </div>
@@ -2218,7 +2249,7 @@ export default function App() {
                   <button 
                     onClick={handleUpdateProfile}
                     disabled={loading}
-                    className="flex-1 py-4 bg-zinc-900 hover:bg-zinc-800 text-white rounded-2xl font-black text-xs uppercase tracking-widest flex items-center justify-center gap-3 transition-all active:scale-95 shadow-xl shadow-zinc-900/20"
+                    className="flex-1 py-4 bg-primary hover:bg-primary/90 text-white rounded-2xl font-black text-xs uppercase tracking-widest flex items-center justify-center gap-3 transition-all active:scale-95 shadow-xl shadow-primary/20"
                   >
                     {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
                     Save Changes
@@ -2228,7 +2259,7 @@ export default function App() {
                       setIsEditingProfile(false);
                       setEditProfileData(null);
                     }}
-                    className="px-8 py-4 bg-zinc-100 hover:bg-zinc-200 text-zinc-900 rounded-2xl font-black text-xs uppercase tracking-widest transition-all active:scale-95"
+                    className="px-8 py-4 bg-slate-100 hover:bg-slate-200 text-slate-900 rounded-2xl font-black text-xs uppercase tracking-widest transition-all active:scale-95"
                   >
                     Cancel
                   </button>
@@ -2243,33 +2274,33 @@ export default function App() {
       {subScanModal && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
           <div className="bg-white w-full max-w-lg rounded-[2.5rem] overflow-hidden shadow-2xl animate-in zoom-in-95 duration-200">
-            <div className="p-6 border-b border-zinc-100 flex items-center justify-between">
+            <div className="p-6 border-b border-slate-100 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-zinc-900 flex items-center justify-center text-white">
+                <div className="w-10 h-10 rounded-2xl bg-primary flex items-center justify-center text-white">
                   {subScanModal === 'PLATE' ? <Car className="w-5 h-5" /> : 
                    subScanModal === 'LICENSE' ? <CreditCard className="w-5 h-5" /> : 
                    subScanModal === 'NID' ? <IdCard className="w-5 h-5" /> :
                    <Search className="w-5 h-5" />}
                 </div>
                 <div>
-                  <h3 className="font-black uppercase tracking-widest text-zinc-900">
+                  <h3 className="font-black uppercase tracking-widest text-slate-900">
                     {subScanModal === 'NID_BACK' ? 'Scan NID Back' : `Scan ${subScanModal}`}
                   </h3>
-                  <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
                     {subScanModal === 'NID_BACK' ? 'Align NID back for address extraction' : 'Align item in the frame'}
                   </p>
                 </div>
               </div>
               <button 
                 onClick={() => setSubScanModal(null)}
-                className="w-10 h-10 rounded-2xl bg-zinc-50 hover:bg-zinc-100 flex items-center justify-center text-zinc-400 hover:text-zinc-900 transition-colors"
+                className="w-10 h-10 rounded-2xl bg-slate-50 hover:bg-slate-100 flex items-center justify-center text-slate-400 hover:text-slate-900 transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
             
             <div 
-              className="relative aspect-[4/3] bg-zinc-900 overflow-hidden cursor-pointer"
+              className="relative aspect-[4/3] bg-slate-900 overflow-hidden cursor-pointer"
               onClick={() => {
                 if (!loading) {
                   scanSubItem(subScanModal).then(() => setSubScanModal(null));
@@ -2311,7 +2342,7 @@ export default function App() {
                   setSubScanModal(null);
                 }}
                 disabled={loading}
-                className="w-full py-5 bg-zinc-900 hover:bg-zinc-800 text-white rounded-2xl font-bold text-lg flex items-center justify-center gap-3 transition-all active:scale-[0.98]"
+                className="w-full py-5 bg-primary hover:bg-primary/90 text-white rounded-2xl font-bold text-lg flex items-center justify-center gap-3 transition-all active:scale-[0.98] shadow-xl shadow-primary/20"
               >
                 <Camera className="w-6 h-6" />
                 {subScanModal === 'NID_BACK' ? 'Capture Address' : 'Capture & Extract'}
@@ -2325,7 +2356,7 @@ export default function App() {
       {scanErrorModal && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
           <div 
-            className="absolute inset-0 bg-zinc-900/60 backdrop-blur-sm animate-in fade-in duration-300"
+            className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-300"
             onClick={() => setScanErrorModal(null)}
           />
           <div className="relative w-full max-w-sm bg-white rounded-[2.5rem] shadow-2xl shadow-black/20 overflow-hidden animate-in zoom-in-95 duration-300">
@@ -2347,8 +2378,8 @@ export default function App() {
               </div>
               
               <div className="space-y-2">
-                <h3 className="text-2xl font-black uppercase tracking-tight text-zinc-900">{scanErrorModal.title}</h3>
-                <p className="text-zinc-500 text-sm leading-relaxed">
+                <h3 className="text-2xl font-black uppercase tracking-tight text-slate-900">{scanErrorModal.title}</h3>
+                <p className="text-slate-500 text-sm leading-relaxed">
                   {scanErrorModal.message}
                 </p>
               </div>
@@ -2359,7 +2390,7 @@ export default function App() {
                   "w-full py-4 rounded-2xl font-black text-xs uppercase tracking-widest transition-all active:scale-95 shadow-xl",
                   scanErrorModal.title === 'Success' 
                     ? "bg-green-600 hover:bg-green-700 text-white shadow-green-900/20" 
-                    : "bg-zinc-900 hover:bg-zinc-800 text-white shadow-zinc-900/20"
+                    : "bg-primary hover:bg-primary/90 text-white shadow-primary/20"
                 )}
               >
                 {scanErrorModal.title === 'Success' ? 'Great!' : 'Try Again'}
