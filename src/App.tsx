@@ -397,46 +397,89 @@ export default function App() {
   }, [user, view, adminSubView, isAdmin]);
 
   // --- AI Logic ---
-  const extractDataFromImage = async (base64Image: string, type: ScanType): Promise<string> => {
-    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY! });
-    
-    let prompt = "";
-    switch(type) {
-      case 'PLATE':
-        prompt = "Extract the license plate number from this image. Return ONLY the plate number, nothing else. If no plate is found, return 'NOT_FOUND'.";
-        break;
-      case 'LICENSE':
-        prompt = "Extract the full name, license number, and address from this Driving License. Return ONLY a JSON object: {\"name\": \"...\", \"id\": \"...\", \"address\": \"...\"}. If not found, return 'NOT_FOUND'.";
-        break;
-      case 'NID':
-        prompt = "Extract the full name, NID number, age, and address from this NID card. Return ONLY a JSON object: {\"name\": \"...\", \"id\": \"...\", \"age\": \"...\", \"address\": \"...\"}. If not found, return 'NOT_FOUND'.";
-        break;
-      case 'NID_BACK':
-        prompt = "Extract the address from this NID card back. Return ONLY a JSON object: {\"address\": \"...\"}. If no address is found, return 'NOT_FOUND'.";
-        break;
-      case 'FACE':
-        prompt = "Describe the person in this image briefly (age range, gender, key features). Also provide a 'shortId' which is a consistent string based on their gender, approximate age, and most prominent feature (e.g., 'MALE_30S_BEARD'). Return ONLY a JSON object: {\"description\": \"...\", \"shortId\": \"...\"}. If no face is found, return 'NOT_FOUND'.";
-        break;
-      case 'VERIFY':
-        prompt = "Analyze this image for a person's face or a vehicle license plate. If a face is found, provide a 'shortId' (gender_age_feature). If a plate is found, provide the plate number. Return ONLY a JSON object: {\"type\": \"FACE\" | \"PLATE\", \"id\": \"...\"}. If neither is found, return 'NOT_FOUND'.";
-        break;
-    }
+  const compressImage = (base64Str: string, maxWidth = 1024, maxHeight = 1024): Promise<string> => {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.src = base64Str;
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        let width = img.width;
+        let height = img.height;
 
-    const model = ai.models.generateContent({
-      model: MODEL_NAME,
-      contents: [
-        {
+        if (width > height) {
+          if (width > maxWidth) {
+            height *= maxWidth / width;
+            width = maxWidth;
+          }
+        } else {
+          if (height > maxHeight) {
+            width *= maxHeight / height;
+            height = maxHeight;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx?.drawImage(img, 0, 0, width, height);
+        resolve(canvas.toDataURL('image/jpeg', 0.7));
+      };
+    });
+  };
+
+  const extractDataFromImage = async (base64Image: string, type: ScanType, retryCount = 0): Promise<string> => {
+    try {
+      const compressedImage = await compressImage(base64Image);
+      const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY! });
+      
+      let prompt = "";
+      switch(type) {
+        case 'PLATE':
+          prompt = "Extract the license plate number from this image. Return ONLY the plate number, nothing else. If no plate is found, return 'NOT_FOUND'.";
+          break;
+        case 'LICENSE':
+          prompt = "Extract the full name, license number, and address from this Driving License. Return ONLY a JSON object: {\"name\": \"...\", \"id\": \"...\", \"address\": \"...\"}. If not found, return 'NOT_FOUND'.";
+          break;
+        case 'NID':
+          prompt = "Extract the full name, NID number, age, and address from this NID card. Return ONLY a JSON object: {\"name\": \"...\", \"id\": \"...\", \"age\": \"...\", \"address\": \"...\"}. If not found, return 'NOT_FOUND'.";
+          break;
+        case 'NID_BACK':
+          prompt = "Extract the address from this NID card back. Return ONLY a JSON object: {\"address\": \"...\"}. If no address is found, return 'NOT_FOUND'.";
+          break;
+        case 'FACE':
+          prompt = "Describe the person in this image briefly (age range, gender, key features). Also provide a 'shortId' which is a consistent string based on their gender, approximate age, and most prominent feature (e.g., 'MALE_30S_BEARD'). Return ONLY a JSON object: {\"description\": \"...\", \"shortId\": \"...\"}. If no face is found, return 'NOT_FOUND'.";
+          break;
+        case 'VERIFY':
+          prompt = "Analyze this image for a person's face or a vehicle license plate. If a face is found, provide a 'shortId' (gender_age_feature). If a plate is found, provide the plate number. Return ONLY a JSON object: {\"type\": \"FACE\" | \"PLATE\", \"id\": \"...\"}. If neither is found, return 'NOT_FOUND'.";
+          break;
+      }
+
+      const response = await ai.models.generateContent({
+        model: MODEL_NAME,
+        contents: {
           parts: [
             { text: prompt },
-            { inlineData: { mimeType: "image/jpeg", data: base64Image.split(',')[1] } }
+            { 
+              inlineData: {
+                mimeType: "image/jpeg",
+                data: compressedImage.split(',')[1]
+              }
+            }
           ]
         }
-      ]
-    });
+      });
 
-    const response = await model;
-    const text = response.text?.trim() || "NOT_FOUND";
-    return text;
+      const text = response.text?.trim() || "NOT_FOUND";
+      return text;
+    } catch (err) {
+      console.error(`Gemini Error (Attempt ${retryCount + 1}):`, err);
+      if (retryCount < 2) {
+        // Wait 1 second before retrying
+        await new Promise(r => setTimeout(r, 1000));
+        return extractDataFromImage(base64Image, type, retryCount + 1);
+      }
+      throw err;
+    }
   };
 
   // --- Scan Logic ---
@@ -651,8 +694,11 @@ export default function App() {
         faceShortId
       });
     } catch (err: any) {
-      console.error(err);
-      setError(err.message || "An unexpected error occurred");
+      console.error("Scan error:", err);
+      setScanErrorModal({
+        title: "Processing Error",
+        message: "The AI service encountered an error while processing the image. This might be due to a temporary connection issue or a large image size. Please try again."
+      });
     } finally {
       setLoading(false);
     }
@@ -726,8 +772,8 @@ export default function App() {
         return prev;
       });
     } catch (err: any) {
-      console.error(err);
-      setError(err.message || "An unexpected error occurred");
+      console.error("Sub-scan error:", err);
+      setError("AI processing failed. Please check your connection and try again.");
     } finally {
       setLoading(false);
     }
@@ -848,7 +894,11 @@ export default function App() {
       
       setPendingScan(null);
     } catch (err) {
-      handleFirestoreError(err, OperationType.CREATE, activeScanType === 'FACE' ? 'profiles' : 'scans');
+      console.error("Scan error:", err);
+      setScanErrorModal({
+        title: "Processing Error",
+        message: "The AI service encountered an error while processing the image. This might be due to a temporary connection issue. Please try again."
+      });
     } finally {
       setLoading(false);
     }
